@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2F4534B426625EC90082A100 /* OrderListTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4534B326625EC90082A100 /* OrderListTableViewController.swift */; };
+		2F4534B626625EDC0082A100 /* OrderListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4534B526625EDC0082A100 /* OrderListTableViewCell.swift */; };
+		2F4534BC26627F780082A100 /* OrderDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4534BB26627F780082A100 /* OrderDetail.swift */; };
+		2F4534C42664CD020082A100 /* Order.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2F4534C32664CD010082A100 /* Order.swift */; };
 		2FA1B44D2653A99C00D9311B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1B44C2653A99C00D9311B /* AppDelegate.swift */; };
 		2FA1B44F2653A99C00D9311B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1B44E2653A99C00D9311B /* SceneDelegate.swift */; };
 		2FA1B4542653A99C00D9311B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2FA1B4522653A99C00D9311B /* Main.storyboard */; };
@@ -23,6 +27,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2F4534B326625EC90082A100 /* OrderListTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListTableViewController.swift; sourceTree = "<group>"; };
+		2F4534B526625EDC0082A100 /* OrderListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderListTableViewCell.swift; sourceTree = "<group>"; };
+		2F4534BB26627F780082A100 /* OrderDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderDetail.swift; sourceTree = "<group>"; };
+		2F4534C32664CD010082A100 /* Order.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Order.swift; sourceTree = "<group>"; };
 		2FA1B4492653A99C00D9311B /* OrderDrinks.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = OrderDrinks.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2FA1B44C2653A99C00D9311B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2FA1B44E2653A99C00D9311B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -90,6 +98,7 @@
 			children = (
 				2FA1B4602653C7C200D9311B /* MenuCollectionViewController.swift */,
 				2FA1B490265BB5ED00D9311B /* OrderTableViewController.swift */,
+				2F4534B326625EC90082A100 /* OrderListTableViewController.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -99,6 +108,8 @@
 			children = (
 				2FA1B4672655472300D9311B /* DrinksDetail.swift */,
 				2FA1B497265E37E500D9311B /* CustomItems.swift */,
+				2F4534BB26627F780082A100 /* OrderDetail.swift */,
+				2F4534C32664CD010082A100 /* Order.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -107,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				2FA1B4652654CD2900D9311B /* MenuCollectionViewCell.swift */,
+				2F4534B526625EDC0082A100 /* OrderListTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -203,9 +215,13 @@
 				2FA1B4682655472300D9311B /* DrinksDetail.swift in Sources */,
 				2FA1B49A265E918200D9311B /* UITextField+Extensions.swift in Sources */,
 				2FA1B44D2653A99C00D9311B /* AppDelegate.swift in Sources */,
+				2F4534B626625EDC0082A100 /* OrderListTableViewCell.swift in Sources */,
+				2F4534BC26627F780082A100 /* OrderDetail.swift in Sources */,
 				2FA1B498265E37E500D9311B /* CustomItems.swift in Sources */,
 				2FA1B496265E0A3C00D9311B /* UIPickerView+Extension.swift in Sources */,
 				2FA1B44F2653A99C00D9311B /* SceneDelegate.swift in Sources */,
+				2F4534B426625EC90082A100 /* OrderListTableViewController.swift in Sources */,
+				2F4534C42664CD020082A100 /* Order.swift in Sources */,
 				2FA1B48F2657A76200D9311B /* MenuController.swift in Sources */,
 				2FA1B4662654CD2900D9311B /* MenuCollectionViewCell.swift in Sources */,
 			);

@@ -22,7 +22,7 @@ class MenuCollectionViewController: UICollectionViewController {
                 self.updateUI(with: menuDatas)
                 print("Fetch data success")
             case .failure(let error):
-                self.displayError(error, title: "Failed to fetch the data")
+                self.displayError(error, title: "Failed to fetch the data!")
             }
         }
         

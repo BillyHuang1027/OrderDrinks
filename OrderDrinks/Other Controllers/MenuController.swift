@@ -11,7 +11,16 @@ import UIKit
 public let apiKey = "keyx9HTNFU3b7AMpV"
 class MenuController {
     static let shared = MenuController()
-    //抓資料
+    static let orderUpdateNotification = Notification.Name("MenuController.orderUpdate")
+    
+    var order = Order() {
+        didSet {
+            NotificationCenter.default.post(name: MenuController.orderUpdateNotification, object: nil)
+        }
+    }
+    
+    
+    //抓Menu資料
     func fetchData(urlStr: String, completion: @escaping (Result<[Record], Error>) -> Void) {
         let url = URL(string: urlStr)
         var request = URLRequest(url: url!)
@@ -41,4 +50,26 @@ class MenuController {
             }
         }.resume()
     }
+    //上傳資料到airtable
+    func uploadData(urlStr: String, data: OrderDetail) {
+        let url = URL(string: urlStr)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let encoder = JSONEncoder()
+        request.httpBody = try? encoder.encode(data)
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let content = String(data: data, encoding: .utf8)
+                    print(content)
+                } catch {
+                    print(error)
+                }
+            }
+        }.resume()
+    }
+    
 }
+

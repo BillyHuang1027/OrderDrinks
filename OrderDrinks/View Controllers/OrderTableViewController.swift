@@ -9,7 +9,9 @@ import UIKit
 
 class OrderTableViewController: UITableViewController {
     
+    let urlStr = "https://api.airtable.com/v0/appIvCr8bPIz9IT4M/OrderList"
     var menuDatas: Record!
+    
     @IBOutlet weak var drinkImage: UIImageView!
     @IBOutlet weak var drinkNameLabel: UILabel!
     @IBOutlet weak var drinkDescription: UILabel!
@@ -28,6 +30,7 @@ class OrderTableViewController: UITableViewController {
     var toppings = String()
     var quantity = 1
     var price = Int()
+    var orderName = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,12 +53,6 @@ class OrderTableViewController: UITableViewController {
         tapGesture()
         quantityLabel.text = String(quantity)
         priceLabel.text = String(price)
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
     
     //增加一個觸控事件
@@ -112,23 +109,30 @@ class OrderTableViewController: UITableViewController {
     }
     //確認鍵動作
     @objc func done() {
+        if let orderName = orderersNameTextField.text {
+            self.orderName = orderName
+        }
+        
         switch pickerView.tag {
         case 0:
             drinksTemperatureTextField.text = temp
             if temp.isEmpty == true {
-                drinksTemperatureTextField.text = Temperature.allCases[0].rawValue
+                temp = Temperature.allCases[0].rawValue
+                drinksTemperatureTextField.text = temp
             }
             drinksTemperatureTextField.resignFirstResponder()
         case 1:
             drinkSweetnessTextField.text = sweetness
             if sweetness.isEmpty == true {
-                drinkSweetnessTextField.text = Sweetness.allCases[0].rawValue
+                sweetness = Sweetness.allCases[0].rawValue
+                drinkSweetnessTextField.text = sweetness
             }
             drinkSweetnessTextField.resignFirstResponder()
         case 2:
             drinkSizeTextField.text = size
             if size.isEmpty == true {
-                drinkSizeTextField.text = Size.allCases[0].rawValue
+                size = Size.allCases[0].rawValue
+                drinkSizeTextField.text = size
                 price = menuDatas.fields.medium
                 priceLabel.text = String(price)
             }
@@ -136,7 +140,8 @@ class OrderTableViewController: UITableViewController {
         default:
             toppingsTextField.text = toppings
             if toppings.isEmpty == true {
-                toppingsTextField.text = Toppings.allCases[0].rawValue
+                toppings = Toppings.allCases[0].rawValue
+                toppingsTextField.text = toppings
             }
             toppingsTextField.resignFirstResponder()
         }
@@ -148,29 +153,61 @@ class OrderTableViewController: UITableViewController {
         drinkSizeTextField.resignFirstResponder()
         toppingsTextField.resignFirstResponder()
     }
-    
+    //減少杯數，低於1杯跳警告
     @IBAction func minusButton(_ sender: Any) {
         if quantity <= 1 {
-            showAlert()
+            showAlert(title: "錯誤數量", message: "請輸入1杯以上")
         } else {
             quantity -= 1
             quantityLabel.text = String(quantity)
             priceLabel.text = String(price * quantity)
         }
     }
-    
+    //增加杯數
     @IBAction func plusButton(_ sender: Any) {
         quantity += 1
         quantityLabel.text = String(quantity)
         priceLabel.text = String(price * quantity)
     }
-    //數量低於1杯跳alert視窗
-    func showAlert() {
-        let alert = UIAlertController(title: "錯誤數量！", message: "請輸入1杯以上", preferredStyle: .alert)
+    //加入購物清單鍵
+    @IBAction func submetButton(_ sender: Any) {
+        let fieldData = OrderDetail.Field(drink: menuDatas.fields.name, size: size, sweetness: sweetness, quantity: quantity, price: price, toppings: toppings, name: orderName, temperature: temp, image: menuDatas.fields.image[0].url)
+        let recordData = OrderDetail.Record(fields: fieldData)
+        let orderDetailData = OrderDetail(records: [recordData])
+        //檢查是否有沒輸入的項目
+        if orderersNameTextField.text?.isEmpty == true {
+            showAlert(title: "警告！", message: "請輸入訂購人名字")
+        } else if drinksTemperatureTextField.text?.isEmpty == true {
+            showAlert(title: "警告！", message: "請選擇飲品溫度")
+        } else if drinkSweetnessTextField.text?.isEmpty == true {
+            showAlert(title: "警告！", message: "請選擇飲品甜度")
+        } else if drinkSizeTextField.text?.isEmpty == true {
+            showAlert(title: "警告！", message: "請選擇飲品大小")
+        } else if toppingsTextField.text?.isEmpty == true {
+            showAlert(title: "警告！", message: "請選擇是否加料")
+        } else {
+            
+            confirmOrder { _ in
+                MenuController.shared.uploadData(urlStr: self.urlStr, data: orderDetailData)
+                MenuController.shared.order.orders.append(fieldData)
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+    }
+    
+    //錯誤跳警告視窗
+    func showAlert(title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
     }
-    
+    //飲料加入訂單跳確認視窗
+    func confirmOrder(action: @escaping (UIAlertAction) -> Void) {
+        let alert = UIAlertController(title: "確認加入訂購清單嗎？", message: nil, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "確認", style: .default, handler: action))
+        alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+        self.present(alert, animated: true, completion: nil)
+    }
     // MARK: - Table view data source
 
     /*
