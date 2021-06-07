@@ -90,7 +90,7 @@
         <scene sceneID="7Us-zM-h5O">
             <objects>
                 <tableViewController id="tiR-Iq-8Oe" customClass="OrderListTableViewController" customModule="OrderDrinks" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="18" sectionFooterHeight="18" id="h75-gM-lN5">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" allowsSelection="NO" rowHeight="80" sectionHeaderHeight="3" sectionFooterHeight="3" id="h75-gM-lN5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="641"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.73333333329999995" green="0.58431372550000005" blue="0.36078431370000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

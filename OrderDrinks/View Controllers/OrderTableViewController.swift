@@ -11,6 +11,7 @@ class OrderTableViewController: UITableViewController {
     
     let urlStr = "https://api.airtable.com/v0/appIvCr8bPIz9IT4M/OrderList"
     var menuDatas: Record!
+    var orderDetail = [OrderDetail.Record]()
     
     @IBOutlet weak var drinkImage: UIImageView!
     @IBOutlet weak var drinkNameLabel: UILabel!
@@ -189,9 +190,15 @@ class OrderTableViewController: UITableViewController {
             
             confirmOrder { _ in
                 MenuController.shared.uploadData(urlStr: self.urlStr, data: orderDetailData)
-                MenuController.shared.order.orders.append(fieldData)
+                MenuController.shared.order.orders.append(recordData)
                 self.navigationController?.popViewController(animated: true)
             }
+        }
+    }
+    
+    func updateUI(with orderDetail: [OrderDetail.Record]) {
+        DispatchQueue.main.async {
+            self.orderDetail = orderDetail
         }
     }
     

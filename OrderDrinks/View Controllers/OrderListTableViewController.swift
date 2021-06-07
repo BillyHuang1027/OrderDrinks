@@ -9,12 +9,31 @@ import UIKit
 
 class OrderListTableViewController: UITableViewController {
     
-    var orderData = [OrderDetail.Record]()
+    var orderList = [OrderList.Record]()
+    let urlStr = "https://api.airtable.com/v0/appIvCr8bPIz9IT4M/OrderList?sort[][field]=createdTime"
 
     override func viewDidLoad() {
         super.viewDidLoad()
   
         NotificationCenter.default.addObserver(tableView!, selector: #selector(UITableView.reloadData), name: MenuController.orderUpdateNotification, object: nil)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        MenuController.shared.fetchOrderData(urlStr: urlStr) { (result) in
+            switch result {
+            case .success(let orderLists):
+                self.updateUI(with: orderLists)
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func updateUI(with orderList: [OrderList.Record]) {
+        DispatchQueue.main.async {
+            self.orderList = orderList
+            self.tableView.reloadData()
+        }
     }
    
     // MARK: - Table view data source
@@ -32,46 +51,42 @@ class OrderListTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "orderListTableViewCell", for: indexPath) as! OrderListTableViewCell
         let orderDetail = MenuController.shared.order.orders[indexPath.section]
-        MenuController.shared.fetchImage(url: orderDetail.image) { (Image) in
+        MenuController.shared.fetchImage(url: orderDetail.fields.image) { (Image) in
             guard let image = Image else { return }
             DispatchQueue.main.async {
                 cell.drinkImageView.image = image
             }
         }
-        cell.orderNameLabel.text = orderDetail.name
-        cell.drinkNameLabel.text = orderDetail.drink
-        cell.tempLabel.text = orderDetail.temperature
-        cell.sweetnessLabel.text = orderDetail.sweetness
-        cell.countLabel.text = "\(orderDetail.quantity)杯"
-        cell.drinkPriceLabel.text = String(orderDetail.price)
-        if orderDetail.toppings == "無" {
+        cell.orderNameLabel.text = orderDetail.fields.name
+        cell.drinkNameLabel.text = orderDetail.fields.drink
+        cell.tempLabel.text = orderDetail.fields.temperature
+        cell.sweetnessLabel.text = orderDetail.fields.sweetness
+        cell.countLabel.text = "\(orderDetail.fields.quantity)杯"
+        cell.drinkPriceLabel.text = String(orderDetail.fields.price)
+        if orderDetail.fields.toppings == "無" {
             cell.toppingsLabel.text = ""
         } else {
-            cell.toppingsLabel.text = "+\(orderDetail.toppings)"
+            cell.toppingsLabel.text = "+\(orderDetail.fields.toppings)"
         }
         
         return cell
     }
 
-    /*
-    // Override to support conditional editing of the table view.
+    
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+        
         return true
     }
-    */
 
-    /*
-    // Override to support editing the table view.
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let orderList = orderList[indexPath.section]
+            MenuController.shared.deleteOrderData(urlStr: "https://api.airtable.com/v0/appIvCr8bPIz9IT4M/OrderList/" + orderList.id)
+            MenuController.shared.order.orders.remove(at: indexPath.section)
+        }
     }
-    */
+    
 
     /*
     // Override to support rearranging the table view.

@@ -24,6 +24,7 @@
 		2FA1B496265E0A3C00D9311B /* UIPickerView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1B495265E0A3C00D9311B /* UIPickerView+Extension.swift */; };
 		2FA1B498265E37E500D9311B /* CustomItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1B497265E37E500D9311B /* CustomItems.swift */; };
 		2FA1B49A265E918200D9311B /* UITextField+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FA1B499265E918200D9311B /* UITextField+Extensions.swift */; };
+		2FE36124266DFBFB00160649 /* OrderList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FE36123266DFBFB00160649 /* OrderList.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		2FA1B495265E0A3C00D9311B /* UIPickerView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIPickerView+Extension.swift"; sourceTree = "<group>"; };
 		2FA1B497265E37E500D9311B /* CustomItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomItems.swift; sourceTree = "<group>"; };
 		2FA1B499265E918200D9311B /* UITextField+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extensions.swift"; sourceTree = "<group>"; };
+		2FE36123266DFBFB00160649 /* OrderList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderList.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				2FA1B497265E37E500D9311B /* CustomItems.swift */,
 				2F4534BB26627F780082A100 /* OrderDetail.swift */,
 				2F4534C32664CD010082A100 /* Order.swift */,
+				2FE36123266DFBFB00160649 /* OrderList.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -212,6 +215,7 @@
 			files = (
 				2FA1B4612653C7C200D9311B /* MenuCollectionViewController.swift in Sources */,
 				2FA1B491265BB5EE00D9311B /* OrderTableViewController.swift in Sources */,
+				2FE36124266DFBFB00160649 /* OrderList.swift in Sources */,
 				2FA1B4682655472300D9311B /* DrinksDetail.swift in Sources */,
 				2FA1B49A265E918200D9311B /* UITextField+Extensions.swift in Sources */,
 				2FA1B44D2653A99C00D9311B /* AppDelegate.swift in Sources */,

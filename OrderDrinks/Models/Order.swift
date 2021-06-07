@@ -8,9 +8,9 @@
 import Foundation
 
 struct Order: Codable {
-    var orders: [OrderDetail.Field]
+    var orders: [OrderDetail.Record]
     
-    init(orders: [OrderDetail.Field] = []) {
+    init(orders: [OrderDetail.Record] = []) {
         self.orders = orders
     }
 }

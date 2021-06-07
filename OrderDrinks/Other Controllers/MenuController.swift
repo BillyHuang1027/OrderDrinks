@@ -19,7 +19,6 @@ class MenuController {
         }
     }
     
-    
     //抓Menu資料
     func fetchData(urlStr: String, completion: @escaping (Result<[Record], Error>) -> Void) {
         let url = URL(string: urlStr)
@@ -71,5 +70,38 @@ class MenuController {
         }.resume()
     }
     
+    func fetchOrderData(urlStr: String, completion: @escaping (Result<[OrderList.Record], Error>) -> Void) {
+        let url = URL(string: urlStr)
+        var request = URLRequest(url: url!)
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let data = data {
+                do {
+                    let decoder = JSONDecoder()
+                    let response = try decoder.decode(OrderList.self, from: data)
+                    completion(.success(response.records))
+                } catch {
+                    completion(.failure(error))
+                }
+            } else if let error = error {
+                completion(.failure(error))
+            }
+        }.resume()
+    }
+    
+    func deleteOrderData(urlStr: String) {
+        let url = URL(string: urlStr)
+        var request = URLRequest(url: url!)
+        request.httpMethod = "DELETE"
+        request.setValue("Bearer \(apiKey)", forHTTPHeaderField: "Authorization")
+        URLSession.shared.dataTask(with: request) { (data, response, error) in
+            if let response = response as? HTTPURLResponse, error == nil {
+                print("Delete success")
+                print(response.statusCode)
+            } else {
+                print(error)
+            }
+        } .resume()
+    }
 }
 
